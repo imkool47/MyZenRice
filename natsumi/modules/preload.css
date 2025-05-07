@@ -50,7 +50,7 @@ Edit the natsumi-config.css file instead.
     --natsumi-colors-tertiary: color-mix(in srgb, var(--natsumi-primary-color) 1%, var(--zen-dark-color-mix-base) 99%);
     --natsumi-colors-primary-foreground: color-mix(in srgb, var(--natsumi-primary-color) 80%, white 20%);
 
-    @media (-moz-bool-pref: 'zen.theme.color-prefs.colorful') {
+    @media -moz-pref('zen.theme.color-prefs.colorful') {
       --natsumi-colors-primary: color-mix(in srgb, var(--natsumi-primary-color) 50%, black 50%);
       --natsumi-colors-secondary: color-mix(in srgb, var(--natsumi-primary-color) 40%, black 60%);
       --natsumi-colors-tertiary: color-mix(in srgb, var(--natsumi-primary-color) 15%, black 85%);
@@ -58,11 +58,45 @@ Edit the natsumi-config.css file instead.
     }
   }
 
-  /* Glass effect */
-  --natsumi-glass-background: color-mix(in srgb, var(--natsumi-colors-secondary) 75%, transparent);
-  --natsumi-glass-blur-radius: var(--glass-blur-radius, 10px);
-  --natsumi-glass-shadow-size: var(--glass-shadow-size, 10px);
-  --natsumi-glass-shadow-opacity: var(--glass-shadow-opacity, 75%);
+  /* Material: Mistcrylic */
+  --natsumi-mat-mc-background: color-mix(in srgb, var(--natsumi-primary-color) 40%, rgba(255, 255, 255, 0.8));
+  --natsumi-mat-mc-shadow-color: rgba(0, 0, 0, 0.3);
+  --natsumi-mat-mc-border-color: rgba(255, 255, 255, 0.1);
+  --natsumi-mat-mc-shadow-size: 10px;
+  --natsumi-mat-mc-blur-radius: 15px;
+
+  @media (prefers-color-scheme: dark) {
+    --natsumi-mat-mc-background: color-mix(in srgb, var(--natsumi-colors-secondary) 50%, rgba(0, 0, 0, 0.8));
+  }
+
+  /* Material: Haze */
+  --natsumi-mat-hz-background: rgba(255, 255, 255, 0.8);
+  --natsumi-mat-hz-background-tinted: color-mix(in srgb, var(--natsumi-primary-color) 20%, rgba(255, 255, 255, 0.8));
+  --natsumi-mat-hz-blur-radius: 100px;
+  --natsumi-mat-hz-shadow-color: rgba(0, 0, 0, 0.3);
+  --natsumi-mat-hz-shadow-size: 10px;
+  --natsumi-mat-hz-saturation: 3;
+  --natsumi-mat-hz-contrast: 2;
+
+  @media (prefers-color-scheme: dark) {
+    --natsumi-mat-hz-background: rgba(0, 0, 0, 0.8);
+    --natsumi-mat-hz-background-tinted: color-mix(in srgb, var(--natsumi-colors-secondary) 20%, rgba(0, 0, 0, 0.8));
+  }
+
+  /* Material: Glass */
+  --natsumi-mat-ga-background: color-mix(in srgb, var(--natsumi-colors-secondary) 75%, transparent);
+  --natsumi-mat-ga-blur-radius: 10px;
+  --natsumi-mat-ga-shadow-size: 10px;
+  --natsumi-mat-ga-shadow-opacity: 75%;
+  --natsumi-mat-ga-shadow-color: color-mix(in srgb, var(--natsumi-colors-secondary) var(--natsumi-mat-ga-shadow-opacity), black);
+
+  @media (prefers-color-scheme: dark) {
+    --natsumi-mat-ga-shadow-color: color-mix(in srgb, var(--natsumi-colors-secondary) var(--natsumi-mat-ga-shadow-opacity), white);
+
+    @media -moz-pref("natsumi.theme.force-glass-dark-shadows") {
+      --natsumi-mat-ga-shadow-color: color-mix(in srgb, var(--natsumi-colors-secondary) var(--natsumi-mat-ga-shadow-opacity), black);
+    }
+  }
 
   /* Fonts */
   --natsumi-custom-font: var(--custom-font, system-ui);
@@ -107,7 +141,14 @@ browser, .browserSidebarContainer.deck-selected {
   --container-gradient-width-expanded: var(--container-tabs-expanded-gradient-width, 50%);
 }
 
+/* Sidebar position */
 #sidebar-box {
   --natsumi-sidebar-x-offset: var(--ff-sidebar-x-offset, 20px);
   --natsumi-sidebar-y-offset: var(--ff-sidebar-y-offset, 20px);
+}
+
+/* Blade offset for tabs (change this if other rices/mods break Blade) */
+.tabbrowser-tab {
+  --natsumi-tabs-blade-size-offset: 4px;
+  --natsumi-tabs-blade-position-offset: 2px;
 }

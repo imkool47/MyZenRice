@@ -1,11 +1,22 @@
 @import "natsumi/natsumi.css";
 /*------------ UI FONT ------------*/
-/* * {
-  @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
-  font-family: "Poppins", sans-serif !important;
-  font-size: 12px !important;
-  letter-spacing: 0.2px !important;
-} */
+#zen-current-workspace-indicator-container {
+display: none;
+}
+
+/* Tab close button */
+.tabbrowser-tab[fadein]:not([pinned]) .tab-close-button {
+  display: -moz-box !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+.tabbrowser-tab[unread] .tab-close-button,
+.tabbrowser-tab[busy] .tab-close-button,
+.tabbrowser-tab[pending] .tab-close-button {
+  display: -moz-box !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
 
 /* Integrated URL bar & webview */
 @media not (-moz-bool-pref: "zen.view.compact") {
@@ -106,21 +117,8 @@
 }
 
 /* Change the background color of the first pinned tab */
-.tabbrowser-tab[pinned]:nth-of-type(1) .tab-background {
-  background-color: rgba(255, 255, 255, 0.226) !important;
-  box-shadow: none !important;
-}
 
 /* Change the background color of the second pinned tab */
-.tabbrowser-tab[pinned]:nth-of-type(2) .tab-background {
-  background-color: rgba(255, 255, 255, 0.226) !important;
-  box-shadow: none !important;
-}
-
-.tabbrowser-tab[pinned] .tab-background {
-  border-top: 1px solid #ffffff1f !important;
-  border-bottom: 1px solid #0000001f !important;
-}
 
 #browser {
   &:not(:has(.zen-split-view-splitter)) {
@@ -169,41 +167,11 @@
 scrollbox:nth-child(5) {
   scrollbar-width: none !important;
 }
+
 /* Pinned Tabs */
 #vertical-pinned-tabs-container {
   scrollbar-width: none !important;
 }
-
-/* .browserContainer > findbar {
-  position: fixed;
-  bottom: 0px;
-  margin-bottom: var(--zen-element-separation);
-  margin-left: var(--zen-element-separation);
-  margin-right: var(--zen-element-separation);
-  background: var(--zen-colors-tertiary) !important;
-  border-radius: var(--zen-border-radius);
-  width: calc(100% - var(--zen-element-separation) * 2);
-}
-
-.browserContainer > findbar,
-.findbar-textbox {
-  border: 1px solid var(--zen-colors-border) !important;
-} */
-
-/* Increase space around edge of browser window and find bar */
-/* @media (-moz-bool-pref: "uc.floatingfindbar.increase.spacing") {
-  #main-window {
-    --zen-element-separation: 10px !important;
-  }
-} */
-
-/* Enable compact findbar, similar to Smaller Compact Mode by n7itro */
-/* @media (-moz-bool-pref: "uc.floatingfindbar.compact.enabled") {
-  .browserContainer > findbar {
-    width: 75% !important;
-    margin-left: calc(12.5% - var(--zen-element-separation)) !important;
-  }
-} */
 
 /* Animate new tab appear animation */ /*Cool*/
 #vertical-pinned-tabs-container,
@@ -213,21 +181,8 @@ scrollbox:nth-child(5) {
   }
 }
 
-/* The bit I found */
-.tabbrowser-tab .tab-background {
-  transition: background-color 0.3s ease;
-}
 /*------------------------------------------------*
 /* Add hover effect for URL bar */
-#urlbar:hover {
-  background-color: rgba(
-    255,
-    255,
-    255,
-    0.2
-  ) !important; /* Light background on hover */
-  transition: background-color 0.5s ease !important; /* Smooth transition */
-}
 
 /* Smooth transition for tab background colors */
 .tabbrowser-tab .tab-background {
@@ -255,26 +210,10 @@ scrollbox::-webkit-scrollbar-track {
 }
 
 /* Smooth transition for URL bar hover effect */
-#urlbar:hover {
-  background-color: rgba(
-    255,
-    255,
-    255,
-    0.3
-  ) !important; /* Slightly darker background on hover */
-  transition: background-color 0.3s ease-in-out !important; /* Smooth transition */
-}
 
 /* Enhanced tab background transition */
-.tabbrowser-tab .tab-background {
-  transition: background-color 0.4s ease-in-out, border 0.4s ease-in-out; /* Smooth transition */
-}
 
 /* Add a subtle scale effect on tab hover */
-.tabbrowser-tab:hover .tab-background {
-  transform: scale(1.01); /* Slightly enlarge the tab on hover */
-  transition: transform 0.2s ease-in-out; /* Smooth transition */
-}
 
 /* Animate new tab appear animation with a bounce effect */
 #vertical-pinned-tabs-container,
@@ -304,9 +243,6 @@ scrollbox::-webkit-scrollbar-track {
 }
 
 /* Add a shadow effect to the URL bar */
-#urlbar {
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2) !important; /* Subtle shadow for depth */
-}
 
 /* Smooth transition for sidebar container */
 .browserSidebarContainer {
@@ -314,38 +250,48 @@ scrollbox::-webkit-scrollbar-track {
 }
 
 /* Add hover effect for sidebar */
-.browserSidebarContainer:hover {
+ .browserSidebarContainer:hover {
   background-color: rgba(
     0,
     0,
     0,
     0.15
   ) !important; /* Darker background on hover */
-}
+} 
 
 /*________________________________*/
 
 /* Previous CSS remains the same */
 
 /* New Tab Spotlight Effect */
-.tabbrowser-tab:hover::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 150%;
-  height: 150%;
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.158) 0%,
-    rgba(255, 255, 255, 0.05) 30%,
-    transparent 70%
-  );
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-  z-index: -1;
+.tabbrowser-tab {
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
 }
+
+.tabbrowser-tab::after {
+  content: '';
+  position: absolute;
+  inset: 0; /* covers entire tab without overflow */
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.25) 0%,
+    rgba(255, 255, 255, 0.1) 40%,
+    transparent 80%
+  );
+  opacity: 0;
+  transform: scale(1);
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: -1;
+  filter: blur(4px);
+}
+
+.tabbrowser-tab:hover::after {
+  opacity: 1;
+}
+
 
 /* Active Tab Glow Effect */
 .tab-background[selected="true"] {
@@ -354,25 +300,21 @@ scrollbox::-webkit-scrollbar-track {
 }
 
 @keyframes tab-pulse {
-  0%,
-  100% {
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
-  }
-  50% {
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
-  }
+  0%, 100% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.1); }
+  50% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.15); }
 }
 
 /* Tab Close Animation */
 .tab-close-button {
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-    opacity 0.3s ease;
+  opacity 0.3s ease;
 }
 
 .tabbrowser-tab[pending] .tab-close-button {
   transform: rotate(90deg);
   opacity: 0;
 }
+
 
 /* Workspace Button Hover State */
 #zen-workspaces-button {
@@ -430,36 +372,6 @@ scrollbox::-webkit-scrollbar-track {
 }
 
 /* Tab Loading Progress */
-.tabbrowser-tab[busy] .tab-background {
-  position: relative;
-  overflow: hidden;
-}
-
-.tabbrowser-tab[busy] .tab-background::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 2px;
-  width: 0%;
-  background: linear-gradient(90deg, #00ffff66, #00ffffcc, #007e7e66);
-  animation: tab-progress 2s infinite ease-in-out;
-}
-
-@keyframes tab-progress {
-  0% {
-    width: 0%;
-    left: 0;
-  }
-  50% {
-    width: 100%;
-    left: 0;
-  }
-  100% {
-    width: 0%;
-    left: 100%;
-  }
-}
 
 /*------------ NORMAL TAB CUSTOMIZATION ------------*/
 
@@ -564,10 +476,6 @@ scrollbox::-webkit-scrollbar-track {
 }
 
 /* Increase icon size for pinned tabs */
-#zen-essentials-container .tabbrowser-tab[pinned] .tab-icon-image {
-  width: 21px !important; /* Increased icon width */
-  height: 21px !important; /* Increased icon height */
-}
 
 /* Add hover effect for essentials tabs */
 #zen-essentials-container .tabbrowser-tab[pinned]:hover .tab-background {
@@ -597,54 +505,117 @@ scrollbox::-webkit-scrollbar-track {
 }
 
 /* ----------Window Control Buttons------------- */
-.titlebar-button {
-  background: transparent !important;
-  padding: 8px !important;
-  cursor: pointer;
-  transition: transform 0.2s ease;
+
+
+/* Compact Extension Menu*/
+
+@-moz-document url-prefix("chrome:") {
+  #unified-extensions-view box.panel-header,
+  #unified-extensions-description,
+  #unified-extensions-messages-container {
+    display: none !important;
+  }
+  #unified-extensions-view {
+    width: 300px !important;
+    max-height: 50vh !important;
+    overflow-y: auto !important;
+  }
+  panelview .unified-extensions-item-action-button {
+    padding-inline: 10px !important;
+    padding-block: 0px !important;
+  }
+  #unified-extensions-manage-extensions {
+    padding-inline: 10px !important;
+  }
+  #unified-extensions-panel .unified-extensions-item {
+    margin-block: 1px !important;
+  }
+  panelview[extension] {
+    width: auto !important;
+    max-width: none !important;
+    max-height: none !important;
+    min-height: 300px !important;
+  }
+  
+  /* More specific selector */
+  #unified-extensions-view .unified-extensions-permissions-label {
+    display: none !important;
+  }
 }
 
-.titlebar-button:active {
-  transform: scale(0.9);
+
+/* Compact Bookmark/History Dropdown */
+
+@-moz-document url-prefix("chrome://browser/content/browser.xhtml") {
+  /* General panel sizing */
+  panelview {
+    max-width: 300px !important;
+    max-height: 50vh !important;
+    overflow-y: auto !important;
+  }
+
+  /* Bookmark/History dropdown items */
+  .subviewbutton {
+    padding-block: 2px !important;
+    padding-inline: 8px !important;
+    min-height: 28px !important;
+    font-size: 13px !important;
+  }
+
+  /* Hide separators and large margins */
+  toolbarseparator,
+  .panel-subview-body + .panel-subview-footer {
+    display: none !important;
+  }
+
+  /* Reduce icon sizes slightly */
+  .subviewbutton > .toolbarbutton-icon {
+    width: 16px !important;
+    height: 16px !important;
+  }
+
+  /* Remove extra spacing from panel header */
+  .panel-header {
+    margin: 0 !important;
+    padding: 4px !important;
+  }
 }
 
-.titlebar-button > .toolbarbutton-icon {
-  background: rgba(255, 255, 255, 0.12) !important;
-  list-style-image: none !important;
-  border-radius: 50%;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  margin: 0 6px;
-  width: 16px !important;
-  height: 16px !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+/* Compact Floating History and Bookmark list(CTRL+B) and (CTRL+H) */
 
-/* Minimize Button */
-.titlebar-min > .toolbarbutton-icon {
-  background: rgba(255, 255, 255, 0.12) !important;
-}
+@-moz-document url-prefix("chrome://browser/content/browser.xhtml") {
+  #sidebar-box {
+    position: fixed !important;
+    top: 80px !important;
+    left: 50px !important;
+    width: 300px !important;
+    height: 70vh !important;
+    z-index: 1000 !important;
+    background-color: var(--lwt-sidebar-background-color, #1e1e1e) !important;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5) !important;
+    border-radius: 10px !important;
+    overflow: hidden !important;
+  }
 
-.titlebar-min:hover > .toolbarbutton-icon {
-  background: rgba(250, 197, 55, 0.9) !important;
-  box-shadow: 0 0 12px rgba(250, 197, 55, 0.4);
-}
+  /* Prevent content from shifting */
+  #sidebar-splitter {
+    display: none !important;
+  }
 
-/* Maximize Button */
-.titlebar-max > .toolbarbutton-icon {
-  background: rgba(255, 255, 255, 0.12) !important;
-}
+  #appcontent {
+    margin-left: 0px !important;
+  }
 
-.titlebar-max:hover > .toolbarbutton-icon {
-  background: rgba(58, 234, 73, 0.9) !important;
-  box-shadow: 0 0 12px rgba(58, 234, 73, 0.4);
-}
+  /* Optional: style sidebar header */
+  #sidebar-header {
+    font-size: 13px !important;
+    padding: 6px !important;
+    background-color: #2e2e2e !important;
+    color: white !important;
+  }
 
-/* Close Button */
-.titlebar-close > .toolbarbutton-icon {
-  background: rgba(255, 255, 255, 0.12) !important;
-}
-
-.titlebar-close:hover > .toolbarbutton-icon {
-  background: rgba(243, 79, 86, 0.9) !important;
-  box-shadow: 0 0 12px rgba(243, 79, 86, 0.4);
+  /* Compact bookmark list */
+  treechildren::-moz-tree-row {
+    height: 22px !important;
+  }
 }

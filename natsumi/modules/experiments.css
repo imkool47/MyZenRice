@@ -35,19 +35,9 @@ By using experimental features, you acknowledge that they may break Natsumi or Z
 */
 
 /* Global font */
-@media (-moz-bool-pref: "natsumi.experiments.custom-font") {
+@media -moz-pref("natsumi.experiments.custom-font") {
   #zen-main-app-wrapper, .tab-label, menuitem, panelmultiview, .PanelUI-zen-profiles-item-name {
     font-family: var(--natsumi-custom-font), system-ui !important;
-  }
-}
-
-/* Rounded PiP */
-@media (-moz-bool-pref: "natsumi.experiments.rounded-pip") {
-  @-moz-document url("chrome://global/content/pictureinpicture/player.xhtml") {
-    window, html, body {
-      /* Share same radius as macOS for the sake of simplicity later */
-      border-radius: 9px !important;
-    }
   }
 }
 
