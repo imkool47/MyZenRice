@@ -1,4 +1,13 @@
 @import "natsumi/natsumi.css";
+/* @import "mystyle/bettercolouredessentials.css"; */
+@import "mystyle/bettercustomizetoolbar.css";
+@import "mystyle/miscellaneous.css";
+@import "mystyle/~workspace.css";
+@import "mystyle/arcfont.css";
+@import "mystyle/removescrollbar.css";
+@import "mystyle/pip.css";
+
+
 /*------------ UI FONT ------------*/
 #zen-current-workspace-indicator-container {
 display: none;
@@ -317,30 +326,6 @@ scrollbox::-webkit-scrollbar-track {
 
 
 /* Workspace Button Hover State */
-#zen-workspaces-button {
-  position: relative;
-  overflow: hidden;
-}
-
-#zen-workspaces-button:hover::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to right,
-    transparent,
-    rgba(255, 255, 255, 0.1),
-    transparent
-  );
-  transform: translateX(-100%);
-  animation: button-shine 0.8s ease-in-out infinite;
-}
-
-@keyframes button-shine {
-  to {
-    transform: translateX(100%);
-  }
-}
 
 /* Contextual New Tab Button */
 #new-tab-button {
@@ -378,7 +363,7 @@ scrollbox::-webkit-scrollbar-track {
 /* A. General Customization */
 
 /* adjusting tab height */
-:root {
+/* :root {
   --tab-min-height: 34px !important;
 }
 .tab-content:not([pinned]) {
@@ -389,7 +374,7 @@ scrollbox::-webkit-scrollbar-track {
   border: 2px solid var(--tab-border-color, #e0e0e028) !important;
   border-left: 34px solid var(--tab-border-color, #e0e0e028) !important;
   border-radius: 12px !important;
-  margin: 2px 2px !important; /* adjusting tab width */
+  margin: 2px 2px !important; 
 }
 
 .tabbrowser-tab:not([pinned]) {
@@ -401,7 +386,7 @@ scrollbox::-webkit-scrollbar-track {
     ) !important;
     border: 3px solid rgba(255, 255, 255, 0.418) !important;
   }
-}
+} */
 
 /* text on general tab bar */
 .tab-text:not([pinned]) {
@@ -441,39 +426,6 @@ scrollbox::-webkit-scrollbar-track {
 }
 
 /* B. Colouring Essentials */
-
-#zen-essentials-container
-  .tabbrowser-tab[pinned]:nth-of-type(6n + 1)
-  .tab-background {
-  /* Gmail color with neon animation and rounded borders */
-  background-color: #002fff5e !important;
-  border: 2px solid #4366ffa6 !important;
-  border-radius: 8px !important;
-}
-#zen-essentials-container
-  .tabbrowser-tab[pinned]:nth-of-type(6n + 2)
-  .tab-background {
-  /* YouTube Music color */
-  background-color: #ff000048 !important;
-  border: 2px solid #ff000069 !important;
-  border-radius: 8px !important;
-}
-#zen-essentials-container
-  .tabbrowser-tab[pinned]:nth-of-type(6n + 3)
-  .tab-background {
-  /* Disney+ color */
-  background-color: #100c63 !important;
-  border: 2px solid #1f3ba1 !important;
-  border-radius: 8px !important;
-}
-#zen-essentials-container
-  .tabbrowser-tab[pinned]:nth-of-type(6n + 4)
-  .tab-background {
-  /* Letterboxd color */
-  background-color: #202830a9 !important;
-  border: 2px solid #3f4f5f !important;
-  border-radius: 8px !important;
-}
 
 /* Increase icon size for pinned tabs */
 
@@ -619,3 +571,9 @@ scrollbox::-webkit-scrollbar-track {
     height: 22px !important;
   }
 }
+
+/*  Hide Pinned tab close button */
+/* .tabbrowser-tab[pinned] .tab-close-button {
+  display: none !important;
+} */
+
